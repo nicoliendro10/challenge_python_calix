@@ -19,3 +19,12 @@ class NormalizeDataService:
             column_normalized = normalize('NFC', column_normalized)
             converted_data_column.append(column_normalized)
         return converted_data_column
+
+    def read_csv(self, file_name):
+        """ Read the csv file """
+        data = pd.read_csv(file_name)
+        return data
+
+    def normalize_dataframes(self, list_dataframes):
+        dataframes_joined = pd.concat(list_dataframes)
+        return dataframes_joined
