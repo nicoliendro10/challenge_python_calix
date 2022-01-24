@@ -1,11 +1,11 @@
 import pandas as pd
-from sqlalchemy import create_engine
 from decouple import config
+from sqlalchemy import create_engine
 
 
 class SQLService:
     def __init__(self):
-        
+        """ Initialize the class """
         self.conn_string = ''
         self.engine = None
 
