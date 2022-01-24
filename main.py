@@ -55,9 +55,12 @@ if __name__ == '__main__':
             ]
     get_input_files(urls)
     list_dataframes = normalize_partial_input_files()
-    normalize_data_service = NormalizeDataService()
     #First table
     unified_table = normalize_data_service.normalize_dataframes(list_dataframes)
+    unified_table_setted_columns = normalize_data_service.set_columns(unified_table)
     #Second table
     data_by_criteria = get_data_by_criteria(unified_table)
-
+    #Third table
+    cine = 1
+    list_criteria_cine = ['provincia', 'pantallas', 'butacas', 'espacio_incaa']
+    df_cine = normalize_data_service.set_columns(list_dataframes[cine], list_criteria_cine)
