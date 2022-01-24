@@ -31,10 +31,12 @@ class NormalizeDataService:
         return data
 
     def normalize_dataframes(self, list_dataframes):
+        """ Normalize the dataframes concatenating them """
         dataframes_joined = pd.concat(list_dataframes)
         return dataframes_joined
 
     def set_columns(self, df):
+        """ Set the default and cleaned columns. Delete the columns that are not in the database """
         df = df.drop(df.columns.difference(COLUMNS_DATABASE),
                      axis=COLUMN)
         return df
