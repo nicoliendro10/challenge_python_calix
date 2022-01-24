@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
 from bs4 import BeautifulSoup
-
+import os
 
 url = "https://www.bna.com.ar/Personas"
 response = requests.get(url)
@@ -18,4 +18,5 @@ euro = results[1]
 real = results[2]
 table_monedas = [first_row, second_row, dolar, euro, real]
 df = pd.DataFrame(table_monedas)
-df.to_excel('monedas.xlsx', index=False)
+os.mkdir('rpa/output')
+df.to_excel('rpa/output/monedas.xlsx', index=False)
