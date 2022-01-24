@@ -139,3 +139,4 @@ dmypy.json
 cython_debug/
 
 main_test.py
+output/
