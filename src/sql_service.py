@@ -1,7 +1,9 @@
+import imp
 import pandas as pd
 from decouple import config
 from sqlalchemy import create_engine
 import logging
+import datetime
 
 class SQLService:
     def __init__(self):
@@ -11,6 +13,7 @@ class SQLService:
 
     def create_table(self, table_name, df):
         """ Create a table in the database using the dataframe and the table name """
+        df['timestamp'] = datetime.datetime.now()
         df.to_sql(table_name, self.engine, if_exists='replace', index=False)
 
     def execute_sql_script(self, script):
