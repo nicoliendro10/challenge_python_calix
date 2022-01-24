@@ -1,6 +1,11 @@
-import pandas as pd
 import re
 from unicodedata import normalize
+
+import pandas as pd
+
+COLUMNS_DATABASE = ['cod_loc', 'idprovincia', 'iddepartamento', 'categoria',
+                    'provincia', 'localidad', 'nombre', 'direccion', 'cp', 'telefono', 'mail', 'web']
+COLUMN = 1
 
 
 class NormalizeDataService:
@@ -28,3 +33,8 @@ class NormalizeDataService:
     def normalize_dataframes(self, list_dataframes):
         dataframes_joined = pd.concat(list_dataframes)
         return dataframes_joined
+
+    def set_columns(self, df):
+        df = df.drop(df.columns.difference(COLUMNS_DATABASE),
+                     axis=COLUMN)
+        return df
