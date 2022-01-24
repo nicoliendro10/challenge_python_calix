@@ -1,5 +1,6 @@
 import re
 from unicodedata import normalize
+import logging
 
 import pandas as pd
 
@@ -27,8 +28,11 @@ class NormalizeDataService:
 
     def read_csv(self, file_name):
         """ Read the csv file """
-        data = pd.read_csv(file_name)
-        return data
+        try:
+            data = pd.read_csv(file_name)
+            return data
+        except Exception as e:
+            raise "Cannot read CSV file"
 
     def normalize_dataframes(self, list_dataframes):
         """ Normalize the dataframes concatenating them """

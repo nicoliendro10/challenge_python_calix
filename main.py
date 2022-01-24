@@ -1,6 +1,10 @@
+import logging
+
 from src.input_files_service import InputFilesService
 from src.normalize_data_service import NormalizeDataService
 from src.sql_service import SQLService
+
+logging.basicConfig(level=logging.DEBUG, filename='app.log')
 
 normalize_data_service = NormalizeDataService()
 filename_path_list = []
@@ -59,10 +63,10 @@ def update_data_into_db(list_tables):
     }
     for table_name, table in data_tables.items():
         sql_service.create_table(table_name, table)
-    
 
 
 if __name__ == '__main__':
+    logging.info('Starting script')
     urls = ['https://datos.gob.ar/dataset/cultura-mapa-cultural-espacios-culturales/archivo/cultura_4207def0-2ff7-41d5-9095-d42ae8207a5d',
             'https://datos.gob.ar/dataset/cultura-mapa-cultural-espacios-culturales/archivo/cultura_392ce1a8-ef11-4776-b280-6f1c7fae16ae',
             'https://datos.gob.ar/dataset/cultura-mapa-cultural-espacios-culturales/archivo/cultura_01c6c048-dbeb-44e0-8efa-6944f73715d7'

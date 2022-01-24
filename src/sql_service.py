@@ -1,7 +1,7 @@
 import pandas as pd
 from decouple import config
 from sqlalchemy import create_engine
-
+import logging
 
 class SQLService:
     def __init__(self):
@@ -26,5 +26,9 @@ class SQLService:
         DB_NAME = config('DB_NAME')
         db_string = "postgresql://{USER}:{PASSWORD}@{HOSTNAME}:{PORT}/{DB_NAME}".format(
             USER=USER, PASSWORD=PASSWORD, HOSTNAME=HOSTNAME, PORT=PORT, DB_NAME=DB_NAME)
-        self.conn_string = db_string
-        self.engine = create_engine(self.conn_string)
+        try:
+            self.conn_string = db_string
+            self.engine = create_engine(self.conn_string)
+        except Exception as e:
+            logging.error(e)
+            raise e

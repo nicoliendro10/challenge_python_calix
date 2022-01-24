@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import logging
 
 import requests
 from lxml import html
@@ -13,8 +14,12 @@ class InputFilesService():
 
     def get_input_file_from_url(self, url):
         """ Get the response from the url """
-        response = requests.get(url)
-        return response
+        try:
+            response = requests.get(url)
+            return response
+        except Exception as e:
+            logging.error("Error getting the response from the url: " + str(e))
+            raise e
 
     def save_input_file(self, response, file_name):
         """ Read the content of the response and ave the input file in the correct directory """
@@ -54,4 +59,8 @@ class InputFilesService():
         """ Create the directory if it doesn't exist """
         substr = path_file.split(os.sep)
         path_directory = os.sep.join(substr[:-1])
-        Path(path_directory).mkdir(parents=True, exist_ok=True)
+        try:
+            Path(path_directory).mkdir(parents=True, exist_ok=True)
+        except Exception as e:
+            logging.error("Error creating the directory: " + str(e))
+            raise "Error creating nested directories: " + str(e)
