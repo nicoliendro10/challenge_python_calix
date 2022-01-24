@@ -35,9 +35,9 @@ class NormalizeDataService:
         dataframes_joined = pd.concat(list_dataframes)
         return dataframes_joined
 
-    def set_columns(self, df):
+    def set_columns(self, df, list_columns=COLUMNS_DATABASE):
         """ Set the default and cleaned columns. Delete the columns that are not in the database """
-        df = df.drop(df.columns.difference(COLUMNS_DATABASE),
+        df = df.drop(df.columns.difference(list_columns),
                      axis=COLUMN)
         return df
 
