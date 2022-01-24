@@ -16,16 +16,61 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+--
+-- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA public;
+
+
+ALTER SCHEMA public OWNER TO postgres;
+
+--
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON SCHEMA public IS 'standard public schema';
+
+
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
+
+--
+-- Name: cine; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.cine (
+    provincia text,
+    pantallas bigint,
+    butacas bigint,
+    espacio_incaa text,
+    "timestamp" timestamp without time zone
+);
+
+
+ALTER TABLE public.cine OWNER TO postgres;
+
+--
+-- Name: datos_conjuntos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.datos_conjuntos (
+    categoria text,
+    "Total records" bigint,
+    fuente text,
+    idprovincia double precision,
+    "timestamp" timestamp without time zone
+);
+
+
+ALTER TABLE public.datos_conjuntos OWNER TO postgres;
 
 --
 -- Name: institucion_cultural; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.institucion_cultural (
-    index bigint,
     cod_loc bigint,
     idprovincia bigint,
     iddepartamento bigint,
@@ -37,18 +82,12 @@ CREATE TABLE public.institucion_cultural (
     cp text,
     telefono text,
     mail text,
-    web text
+    web text,
+    "timestamp" timestamp without time zone
 );
 
 
 ALTER TABLE public.institucion_cultural OWNER TO postgres;
-
---
--- Name: ix_institucion_cultural_index; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX ix_institucion_cultural_index ON public.institucion_cultural USING btree (index);
-
 
 --
 -- PostgreSQL database dump complete

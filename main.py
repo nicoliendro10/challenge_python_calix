@@ -48,8 +48,7 @@ def get_data_by_criteria(unified_table):
         df_by_criteria = normalize_data_service.get_df_by_criteria(
             unified_table, list_criteria)
         table_by_criteria.append(df_by_criteria)
-    normalize_data_service.normalize_dataframes(table_by_criteria)
-    return normalize_data_service
+    return normalize_data_service.normalize_dataframes(table_by_criteria)
 
 
 def update_data_into_db(list_tables):
