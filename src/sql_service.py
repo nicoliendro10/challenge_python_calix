@@ -5,16 +5,20 @@ from decouple import config
 
 class SQLService:
     def __init__(self):
+        
         self.conn_string = ''
         self.engine = None
 
     def create_table(self, table_name, df):
+        """ Create a table in the database using the dataframe and the table name """
         df.to_sql(table_name, self.engine, if_exists='replace', index=False)
 
     def execute_sql_script(self, script):
+        """ Execute the sql script """
         self.engine.execute(script)
 
     def config_credentials(self):
+        """ Configure the credentials to connect to the database from a .env file"""
         USER = config('USER', default='postgres')
         PASSWORD = config('PASSWORD')
         HOSTNAME = config('HOSTNAME', default='localhost')
