@@ -40,3 +40,8 @@ class NormalizeDataService:
         df = df.drop(df.columns.difference(COLUMNS_DATABASE),
                      axis=COLUMN)
         return df
+
+    def get_df_by_criteria(self, df, list_criteria):
+        """ Get the dataframe by the criteria and total of records """
+        df_total_count_by_criteria = df.groupby(list_criteria).size().reset_index(name='Total records')
+        return df_total_count_by_criteria
