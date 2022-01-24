@@ -42,10 +42,23 @@ What things you need to install the bot and how to install them
 
 ### Running script ⚙️
 
+Run create_tables.py to create table to database
+
+```
+python3 create_tables.py
+```
+
 You only have to run the main.py file:
 
 ```
 python3 main.py
+```
+
+To run the bonus track, go to rpa/ folder and run:
+
+
+```
+python3 automate_web.py
 ```
 
 ## Built With 🛠️
