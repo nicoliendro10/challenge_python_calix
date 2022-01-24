@@ -7,6 +7,7 @@ from lxml import html
 
 class InputFilesService():
     """ This class is used to download the input files from the url and save them in the correct directory """
+
     def __init__(self):
         pass
 
@@ -45,7 +46,7 @@ class InputFilesService():
     def create_filename_csv(self, category_name, date):
         """ Create the filename of the csv file using the category name and the today's date """
         category_name = category_name.lower()
-        filename = category_name + '\\' + str(date.year) + '-' + date.strftime("%B") + '\\' + category_name + '-' + str(
+        filename = output + '\\' + category_name + '\\' + str(date.year) + '-' + date.strftime("%B") + '\\' + category_name + '-' + str(
             date.day) + '-' + str(date.month) + '-' + str(date.year) + '.csv'
         return filename
 
