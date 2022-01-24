@@ -6,7 +6,6 @@ normalize_data_service = NormalizeDataService()
 filename_path_list = []
 
 
-
 def get_input_files(urls):
     """ Get the input files from the url and save them in the correct directory """
     input_files_service = InputFilesService()
@@ -36,16 +35,31 @@ def normalize_partial_input_files():
         list_dataframes.append(df)
     return list_dataframes
 
+
 def get_data_by_criteria(unified_table):
     """ Get the data by criteria """
     matrix_criteria = [['categoria'], ['fuente'], ['idprovincia', 'categoria']]
     table_by_criteria = []
     for list_criteria in matrix_criteria:
-        df_by_criteria = normalize_data_service.get_df_by_criteria(unified_table, list_criteria)
+        df_by_criteria = normalize_data_service.get_df_by_criteria(
+            unified_table, list_criteria)
         table_by_criteria.append(df_by_criteria)
     normalize_data_service.normalize_dataframes(table_by_criteria)
     return normalize_data_service
 
+
+def update_data_into_db(list_tables):
+    """ Update the data into the database """
+    sql_service = SQLService()
+    sql_service.config_credentials()
+    data_tables = {
+        'institucion_cultural': list_tables[0],
+        'datos_conjuntos': list_tables[1],
+        'cine': list_tables[2]
+    }
+    for table_name, table in data_tables.items():
+        sql_service.create_table(table_name, table)
+    
 
 
 if __name__ == '__main__':
@@ -55,12 +69,17 @@ if __name__ == '__main__':
             ]
     get_input_files(urls)
     list_dataframes = normalize_partial_input_files()
-    #First table
-    unified_table = normalize_data_service.normalize_dataframes(list_dataframes)
-    unified_table_setted_columns = normalize_data_service.set_columns(unified_table)
-    #Second table
+    # First table, institucion_cultural
+    unified_table = normalize_data_service.normalize_dataframes(
+        list_dataframes)
+    unified_table_setted_columns = normalize_data_service.set_columns(
+        unified_table)
+    # Second table, datos_conjuntos
     data_by_criteria = get_data_by_criteria(unified_table)
-    #Third table
+    # Third table, cine
     cine = 1
     list_criteria_cine = ['provincia', 'pantallas', 'butacas', 'espacio_incaa']
-    df_cine = normalize_data_service.set_columns(list_dataframes[cine], list_criteria_cine)
+    df_cine = normalize_data_service.set_columns(
+        list_dataframes[cine], list_criteria_cine)
+    tables_to_db = [unified_table_setted_columns, data_by_criteria, df_cine]
+    update_data_into_db(tables_to_db)
