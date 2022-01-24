@@ -46,7 +46,7 @@ class InputFilesService():
     def create_filename_csv(self, category_name, date):
         """ Create the filename of the csv file using the category name and the today's date """
         category_name = category_name.lower()
-        filename = output + '\\' + category_name + '\\' + str(date.year) + '-' + date.strftime("%B") + '\\' + category_name + '-' + str(
+        filename = 'output' + '\\' + category_name + '\\' + str(date.year) + '-' + date.strftime("%B") + '\\' + category_name + '-' + str(
             date.day) + '-' + str(date.month) + '-' + str(date.year) + '.csv'
         return filename
 
